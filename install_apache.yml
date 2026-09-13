@@ -4,15 +4,19 @@
   become: true
   tasks: 
 
-  - name: update repo index
+  - name: install updates
+    tags: always
     dnf:
+      update_only: yes
       update_cache: yes
 
   - name: install httpd package
+    tags: httpd
     dnf:
       name: httpd
       state: latest
   - name: add php support for apache
+    tags: php
     dnf:
       name: php
       state: latest
@@ -29,3 +33,17 @@
       permanent: true
       state: enabled
       immediate: true
+
+  - name: install mariadb package
+    dnf:
+      name: 
+        - mariadb
+        - mariadb-server
+      state: latest
+
+  - name: starting mariadb
+    service:
+      name: mariadb
+      tags: mariadb
+      state: started
+      enabled: true
