@@ -16,3 +16,16 @@
     dnf:
       name: php
       state: latest
+
+  - name: start and enable httpd
+    service: 
+      name: httpd
+      state: started
+      enabled: true
+
+  - name: open port 80 for http
+    firewalld:
+      port: 80/tcp
+      permanent: true
+      state: enabled
+      immediate: true
