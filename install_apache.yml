@@ -44,6 +44,15 @@
   - name: starting mariadb
     service:
       name: mariadb
-      tags: mariadb
       state: started
       enabled: true
+
+
+- hosts: all
+  tasks: 
+
+  - name: create simone user
+    tags: always
+    user:
+      name: simone
+      groups: root 
